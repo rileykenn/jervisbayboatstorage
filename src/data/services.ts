@@ -1,0 +1,58 @@
+export const servicesData = [
+    {
+        id: "boat-storage",
+        title: "Boat Storage",
+        description: "Secure hardstand facility for short and long term storage. Includes full shipwright and survey service with power and water access.",
+        image: "/media/boat_storage.webp",
+        featured: true,
+    },
+    {
+        id: "vessel-extraction",
+        title: "Vessel Extraction",
+        description: "Professional extraction from Currambene Creek for vessels up to 16t. Ideal for survey, maintenance, and major works.",
+        image: "/media/vessel_extraction.webp",
+        featured: true,
+    },
+    {
+        id: "salvages",
+        title: "Salvages",
+        description: "24-hour state-wide salvage service for emergencies and vessel recovery.",
+        image: "/media/salvages.webp",
+        featured: false,
+    },
+    {
+        id: "trailer-hire",
+        title: "Trailer Hire",
+        description: "Trailers available for cruisers up to 36ft. Extract directly from boat ramps to our facility.",
+        image: "/media/trailer_hire.webp",
+        featured: false,
+    },
+    {
+        id: "container-hire",
+        title: "Container Hire",
+        description: "Secure on-site container hire with 24/7 access. Available in 20ft and 40ft sizes.",
+        image: "/media/container_hire.webp",
+        featured: false,
+    },
+    {
+        id: "marine-survey",
+        title: "Marine Survey",
+        description: "On-site shipwright licensed to survey vessels for insurance and registration.",
+        image: "/media/marine_survey.webp",
+        featured: false,
+    },
+    {
+        id: "transport",
+        title: "Vessel Transport",
+        description: "State-wide vessel transport services to and from our Jervis Bay facility.",
+        image: "/media/transport.webp",
+        featured: false,
+    },
+    {
+        id: "maintenance",
+        title: "Maintenance",
+        description: "Comprehensive vessel maintenance including antifouling, pressure washing, and mechanical works.",
+        image: "/media/maintenance.webp",
+        featured: false,
+    },
+];
