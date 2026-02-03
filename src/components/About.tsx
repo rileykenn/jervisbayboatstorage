@@ -31,7 +31,12 @@ export default function About() {
 
             <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-                    <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        style={{ willChange: "opacity, transform" }}
+                    >
                         <span className="text-marine-600 font-semibold tracking-wide uppercase text-sm">About Us</span>
                         <h2 className="text-3xl font-bold tracking-tight text-marine-900 sm:text-4xl mt-2 mb-6">
                             Affordable Alternative on the South Coast
@@ -66,6 +71,7 @@ export default function About() {
                                     whileInView={{ opacity: 1, y: 0 }}
                                     viewport={{ once: true }}
                                     transition={{ delay: idx * 0.1 }}
+                                    style={{ willChange: "opacity, transform" }}
                                     className="flex items-start p-4 bg-white/60 backdrop-blur-sm rounded-xl shadow-sm border border-white/50"
                                 >
                                     <div className="flex-shrink-0 p-3 bg-marine-100 rounded-lg mr-4 text-marine-600">

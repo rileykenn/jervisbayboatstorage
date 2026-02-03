@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+* {
+  box-sizing: border-box;
+}
+
 @theme inline {
   /* Marine Palette (Light Blues, Cyan, Teal) */
   --color-marine-50: #f0f9ff;
@@ -32,16 +36,49 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #0c4a6e; /* marine-900 */
+  --foreground: #0c4a6e;
+  /* marine-900 */
+}
+
+html {
+  overflow-x: hidden !important;
+  width: 100%;
 }
 
 body {
   background-color: var(--background);
   color: var(--foreground);
+  overflow-x: hidden !important;
+  width: 100%;
+  position: relative;
+  -webkit-font-smoothing: antialiased;
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+/* Safari-optimized fade-in animation */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s ease-out forwards;
+  /* Force hardware acceleration on Safari */
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  will-change: opacity, transform;
 }

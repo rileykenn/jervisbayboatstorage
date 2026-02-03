@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Navbar from "@/components/Navbar";
 import { Toaster } from "sonner";
@@ -14,6 +14,14 @@ const geistMono = Geist_Mono({
     subsets: ["latin"],
 });
 
+export const viewport: Viewport = {
+    width: "device-width",
+    initialScale: 1,
+    maximumScale: 1,
+    userScalable: false, // Prevents unintended zoom/scroll on mobile interactions
+    themeColor: "#082f49",
+};
+
 export const metadata: Metadata = {
     title: "Jervis Bay Boat Storage | Secure Storage & Vessel Extraction",
     description: "Premier boat storage and vessel extraction services in Jervis Bay. Secure hardstand facility, shipwright services, and 24/7 access.",
@@ -28,7 +36,7 @@ export default function RootLayout({
     return (
         <html lang="en" className="scroll-smooth">
             <body
-                className={`${geistSans.variable} ${geistMono.variable} antialiased selection:bg-marine-100 selection:text-marine-900 font-sans`}
+                className={`${geistSans.variable} ${geistMono.variable} antialiased selection:bg-marine-100 selection:text-marine-900 font-sans overflow-x-hidden`}
             >
                 <Navbar />
                 {children}

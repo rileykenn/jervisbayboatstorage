@@ -89,8 +89,8 @@ export default function Contact() {
 
                     {/* Contact Info & Map */}
                     <motion.div
-                        initial={{ opacity: 0, x: -20 }}
-                        whileInView={{ opacity: 1, x: 0 }}
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         className="flex flex-col h-full"
                     >
@@ -179,8 +179,8 @@ export default function Contact() {
 
                     {/* Contact Form */}
                     <motion.div
-                        initial={{ opacity: 0, x: 20 }}
-                        whileInView={{ opacity: 1, x: 0 }}
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         className="bg-white rounded-3xl p-8 lg:p-10 shadow-2xl text-marine-900"
                     >

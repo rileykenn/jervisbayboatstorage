@@ -1,38 +1,55 @@
 "use client";
 
-import { motion } from "framer-motion";
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import { servicesData } from "@/data/services";
+import { useEffect, useRef } from "react";
 
 export default function Services() {
     const featuredServices = servicesData.filter((s) => s.featured);
     const otherServices = servicesData.filter((s) => !s.featured);
+    const sectionRef = useRef<HTMLElement>(null);
+
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate-fade-in-up');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            },
+            { threshold: 0.1 }
+        );
+
+        const elements = sectionRef.current?.querySelectorAll('.service-card');
+        elements?.forEach((el) => observer.observe(el));
+
+        return () => observer.disconnect();
+    }, []);
 
     return (
-        <section id="services">
+        <section id="services" ref={sectionRef} className="relative z-10 bg-white">
             {/* Featured Section */}
-            <div className="relative py-24 overflow-hidden">
+            <div className="relative py-24 overflow-hidden bg-white">
                 {/* Premium Background */}
                 <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-marine-50 via-white to-marine-50/30" />
                 <div className="absolute inset-0 opacity-[0.1]" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2306b6d4' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")` }} />
 
                 <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
-                    <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mx-auto max-w-2xl text-center mb-16">
+                    <div className="mx-auto max-w-2xl text-center mb-16">
                         <h2 className="text-3xl font-bold tracking-tight text-marine-900 sm:text-4xl">Our Services</h2>
                         <p className="mt-4 text-lg text-marine-600">Professional marine services for Jervis Bay and the South Coast.</p>
-                    </motion.div>
+                    </div>
 
                     {/* Featured - Side by Side on Desktop */}
                     <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:gap-12">
                         {featuredServices.map((service, idx) => (
-                            <motion.div
+                            <div
                                 key={service.id}
-                                initial={{ opacity: 0, y: 30 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: idx * 0.1 }}
-                                className="group relative overflow-hidden rounded-3xl bg-white shadow-2xl shadow-marine-900/10 hover:shadow-3xl hover:shadow-marine-900/20 transition-all duration-300 ring-1 ring-marine-900/5"
+                                style={{ animationDelay: `${idx * 100}ms` }}
+                                className="service-card group relative overflow-hidden rounded-3xl bg-white shadow-2xl shadow-marine-900/10 hover:shadow-3xl hover:shadow-marine-900/20 transition-all duration-300 ring-1 ring-marine-900/5 opacity-0"
                             >
                                 <div className="relative h-72 md:h-96 w-full overflow-hidden">
                                     <Image
@@ -50,7 +67,7 @@ export default function Services() {
                                         </a>
                                     </div>
                                 </div>
-                            </motion.div>
+                            </div>
                         ))}
                     </div>
                 </div>
@@ -74,13 +91,10 @@ export default function Services() {
                     {/* Standard Items */}
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                         {otherServices.map((service, index) => (
-                            <motion.div
+                            <div
                                 key={service.id}
-                                initial={{ opacity: 0, scale: 0.95 }}
-                                whileInView={{ opacity: 1, scale: 1 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: index * 0.05 }}
-                                className="group flex flex-col md:flex-row overflow-hidden rounded-2xl bg-white border border-slate-200 hover:border-marine-200 transition-all shadow-sm hover:shadow-xl hover:shadow-marine-900/5 hover:-translate-y-1 duration-300"
+                                style={{ animationDelay: `${index * 50}ms` }}
+                                className="service-card group flex flex-col md:flex-row overflow-hidden rounded-2xl bg-white border border-slate-200 hover:border-marine-200 transition-all shadow-sm hover:shadow-xl hover:shadow-marine-900/5 hover:-translate-y-1 duration-300 opacity-0"
                             >
                                 <div className="relative h-48 md:h-auto md:w-2/5 shrink-0 overflow-hidden bg-slate-100">
                                     <Image
@@ -95,7 +109,7 @@ export default function Services() {
                                     <h3 className="text-xl font-bold text-marine-900 mb-2 group-hover:text-marine-600 transition-colors">{service.title}</h3>
                                     <p className="text-marine-600 md:text-marine-700 text-sm leading-relaxed">{service.description}</p>
                                 </div>
-                            </motion.div>
+                            </div>
                         ))}
                     </div>
                 </div>

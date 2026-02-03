@@ -1,45 +1,31 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import Image from "next/image";
 import { ArrowRight, ShieldCheck } from "lucide-react";
-import { useRef } from "react";
 
 export default function Hero() {
-    const ref = useRef(null);
-    const { scrollYProgress } = useScroll({
-        target: ref,
-        offset: ["start start", "end start"],
-    });
-
-    const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
-    const textY = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
-    const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
-
     return (
-        <section ref={ref} className="relative min-h-[100dvh] w-full overflow-hidden flex items-center justify-center bg-marine-950">
-            {/* Parallax Background */}
-            <motion.div
-                style={{ y: backgroundY }}
-                className="absolute inset-0 z-0"
-            >
+        <section className="relative h-screen w-full overflow-hidden flex items-center justify-center bg-marine-950">
+            {/* Static Background */}
+            <div className="absolute inset-0 z-0">
                 <Image
                     src="/media/hero_image.png"
                     alt="Jervis Bay Boat Storage Hero"
                     fill
-                    className="object-cover object-center scale-110"
+                    className="object-cover object-center"
                     priority
                     quality={100}
                 />
                 {/* Coastal Gradient Overlays - Darkened for better text contrast on mobile */}
                 <div className="absolute inset-0 bg-gradient-to-b from-marine-950/60 via-marine-900/40 to-marine-950/90" />
                 <div className="absolute inset-0 bg-marine-900/30 mix-blend-overlay" />
-            </motion.div>
+            </div>
 
             {/* Floating Badge - Hidden on mobile, visible from large screens up */}
             <motion.div
-                initial={{ opacity: 0, x: -50 }}
-                animate={{ opacity: 1, x: 0 }}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 1, duration: 1 }}
                 className="absolute bottom-32 left-8 md:left-16 hidden lg:flex items-center gap-3 bg-white/10 backdrop-blur-md border border-white/20 p-4 rounded-xl shadow-2xl z-20"
             >
@@ -54,7 +40,6 @@ export default function Hero() {
 
             {/* Main Content */}
             <motion.div
-                style={{ y: textY, opacity }}
                 className="relative z-10 flex flex-col items-center justify-center px-4 md:px-6 w-full max-w-6xl mx-auto text-center mt-0 md:mt-[-10vh]"
             >
                 <motion.div
@@ -73,9 +58,9 @@ export default function Hero() {
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 0.2 }}
-                    className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-bold tracking-tight text-white mb-6 drop-shadow-xl"
+                    className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-bold tracking-tight text-white mb-6 drop-shadow-xl"
                 >
-                    <span className="block text-marine-100 text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-light mb-2 md:mb-4 tracking-wide md:tracking-normal">Jervis Bay</span>
+                    <span className="block text-marine-100 text-2xl sm:text-4xl md:text-6xl lg:text-7xl font-light mb-2 md:mb-4 tracking-wide md:tracking-normal">Jervis Bay</span>
                     BOAT <span className="text-transparent bg-clip-text bg-gradient-to-br from-white via-marine-100 to-cyan-300">STORAGE</span>
                 </motion.h1>
 
