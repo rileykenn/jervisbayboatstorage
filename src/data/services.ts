@@ -14,19 +14,13 @@ export const servicesData = [
         featured: true,
     },
     {
-        id: "salvages",
-        title: "Salvages",
+        id: "salvage",
+        title: "Salvage",
         description: "24-hour state-wide salvage service for emergencies and vessel recovery.",
-        image: "/media/salvages.webp",
+        image: "/media/salvage.webp",
         featured: false,
     },
-    {
-        id: "trailer-hire",
-        title: "Trailer Hire",
-        description: "Trailers available for cruisers up to 36ft. Extract directly from boat ramps to our facility.",
-        image: "/media/trailer_hire.webp",
-        featured: false,
-    },
+
     {
         id: "container-hire",
         title: "Container Hire",
@@ -44,7 +38,7 @@ export const servicesData = [
     {
         id: "transport",
         title: "Vessel Transport",
-        description: "State-wide vessel transport services to and from our Jervis Bay facility.",
+        description: "Vessel transport services to and from our Jervis Bay facility. Capable of transporting vessels up to 36ft.",
         image: "/media/transport.webp",
         featured: false,
     },
