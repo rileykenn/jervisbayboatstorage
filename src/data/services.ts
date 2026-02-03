@@ -16,7 +16,7 @@ export const servicesData = [
     {
         id: "salvage",
         title: "Salvage",
-        description: "24-hour state-wide salvage service for emergencies and vessel recovery.",
+        description: "24 hour state wide salvage service for emergencies and vessel recovery.",
         image: "/media/salvage.webp",
         featured: false,
     },
@@ -24,14 +24,14 @@ export const servicesData = [
     {
         id: "container-hire",
         title: "Container Hire",
-        description: "Secure on-site container hire with 24/7 access. Available in 20ft and 40ft sizes.",
+        description: "Secure on site container hire with 24/7 access. Available in 20ft and 40ft sizes.",
         image: "/media/container_hire.webp",
         featured: false,
     },
     {
         id: "marine-survey",
         title: "Marine Survey",
-        description: "On-site shipwright licensed to survey vessels for insurance and registration.",
+        description: "On site shipwright licensed to survey vessels for insurance and registration.",
         image: "/media/marine_survey.webp",
         featured: false,
     },
