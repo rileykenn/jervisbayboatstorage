@@ -14,6 +14,9 @@ export default function Home() {
                 <div className="mx-auto max-w-7xl px-6">
                     <p className="text-sm">
                         &copy; {new Date().getFullYear()} Jervis Bay Boat Storage. <br className="md:hidden" /> All rights reserved.
+                        <span className="hidden md:inline"> | </span>
+                        <br className="md:hidden" />
+                        <span className="opacity-80">Designed by <a href="https://rileytechstudio.com" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors underline decoration-marine-400/30 underline-offset-4">Riley Tech Studio</a></span>
                     </p>
                 </div>
             </footer>

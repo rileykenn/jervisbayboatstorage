@@ -55,13 +55,13 @@ export default function Hero() {
             {/* Main Content */}
             <motion.div
                 style={{ y: textY, opacity }}
-                className="relative z-10 flex flex-col items-center justify-center px-4 md:px-6 w-full max-w-6xl mx-auto text-center mt-[-5vh] md:mt-[-10vh]"
+                className="relative z-10 flex flex-col items-center justify-center px-4 md:px-6 w-full max-w-6xl mx-auto text-center mt-0 md:mt-[-10vh]"
             >
                 <motion.div
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.6, ease: "easeOut" }}
-                    className="mb-6 md:mb-8"
+                    className="mb-8 md:mb-8"
                 >
                     <div className="inline-flex items-center rounded-full bg-marine-950/60 px-4 py-1.5 md:px-6 md:py-2 backdrop-blur-md border border-marine-200/20 shadow-lg">
                         <span className="flex h-1.5 w-1.5 md:h-2 md:w-2 rounded-full bg-cyan-400 mr-2 md:mr-3 animate-pulse"></span>
@@ -73,9 +73,9 @@ export default function Hero() {
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 0.2 }}
-                    className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight text-white mb-6 drop-shadow-xl"
+                    className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-bold tracking-tight text-white mb-6 drop-shadow-xl"
                 >
-                    <span className="block text-marine-100 text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-light mb-1 md:mb-2 tracking-wide md:tracking-normal">Jervis Bay</span>
+                    <span className="block text-marine-100 text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-light mb-2 md:mb-4 tracking-wide md:tracking-normal">Jervis Bay</span>
                     BOAT <span className="text-transparent bg-clip-text bg-gradient-to-br from-white via-marine-100 to-cyan-300">STORAGE</span>
                 </motion.h1>
 
@@ -83,7 +83,7 @@ export default function Hero() {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 1, delay: 0.5 }}
-                    className="max-w-xs sm:max-w-2xl text-base md:text-xl text-marine-50 font-light leading-relaxed mb-8 md:mb-12 text-center drop-shadow-md opacity-90"
+                    className="max-w-xs sm:max-w-2xl text-lg md:text-xl text-marine-50 font-light leading-relaxed mb-10 md:mb-12 text-center drop-shadow-md opacity-90"
                 >
                     Secure Storage & Professional Extraction on the Shores of Jervis Bay.
                 </motion.p>

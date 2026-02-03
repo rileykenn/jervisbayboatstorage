@@ -2,8 +2,10 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { Phone, Mail, Facebook, MapPin, Send } from "lucide-react";
 import { servicesData } from "@/data/services";
+import { toast } from "sonner";
 
 export default function Contact() {
     const [formData, setFormData] = useState({
@@ -15,24 +17,37 @@ export default function Contact() {
 
     const [isSubmitting, setIsSubmitting] = useState(false);
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setIsSubmitting(true);
 
-        // Simulate API call / Webhook preparation
-        const payload = {
-            timestamp: new Date().toISOString(),
-            ...formData
-        };
+        try {
+            const response = await fetch('/api/contact', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            });
 
-        console.log("Form Submission Payload:", JSON.stringify(payload, null, 2));
+            const data = await response.json();
 
-        // Simulate delay
-        setTimeout(() => {
-            setIsSubmitting(false);
-            alert("Thanks for your enquiry! We'll be in touch shortly.");
+            if (!response.ok) {
+                throw new Error(data.error || 'Something went wrong');
+            }
+
+            toast.success("Enquiry received! We'll be in touch shortly.", {
+                description: "Thanks for choosing Jervis Bay Boat Storage."
+            });
             setFormData({ name: "", contact: "", service: "", message: "" });
-        }, 1000);
+        } catch (error) {
+            console.error('Submission error:', error);
+            toast.error("Failed to send enquiry.", {
+                description: "Please try again or call us directly on 0401 404 239."
+            });
+        } finally {
+            setIsSubmitting(false);
+        }
     };
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -45,11 +60,32 @@ export default function Contact() {
     return (
         <section id="contact" className="relative py-24 bg-marine-950 text-white overflow-hidden">
             {/* Background Elements */}
-            <div className="absolute top-0 left-0 w-full h-full opacity-10 bg-[url('/media/hero_image.png')] bg-cover bg-center blend-overlay pointer-events-none" />
-            <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-marine-950 via-marine-900/95 to-marine-950 pointer-events-none" />
+            <div className="absolute inset-0 z-0">
+                <Image
+                    src="/media/hymes.webp"
+                    alt="Jervis Bay Background"
+                    fill
+                    className="object-cover object-center blur-[2px] scale-105"
+                />
+                <div className="absolute inset-0 bg-black/50" />
+            </div>
 
             <div className="relative mx-auto max-w-7xl px-6 lg:px-8 z-10">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+                {/* Header */}
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    className="mb-12 md:text-center lg:text-left"
+                >
+                    <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl mb-6">Get In Touch</h2>
+                    <p className="text-marine-100 text-lg leading-relaxed max-w-2xl md:mx-auto lg:mx-0">
+                        Ready to store your boat or need a vessel extracted? Contact our friendly team today for a quote
+                        or to discuss your requirements.
+                    </p>
+                </motion.div>
+
+                <div className="flex flex-col-reverse gap-16 lg:grid lg:grid-cols-2">
 
                     {/* Contact Info & Map */}
                     <motion.div
@@ -58,52 +94,72 @@ export default function Contact() {
                         viewport={{ once: true }}
                         className="flex flex-col h-full"
                     >
-                        <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl mb-6">Get In Touch</h2>
-                        <p className="text-marine-100 mb-10 text-lg leading-relaxed">
-                            Ready to store your boat or need a vessel extracted? Contact our friendly team today for a quote
-                            or to discuss your requirements.
-                        </p>
 
                         <div className="space-y-8 mb-12">
-                            <div className="flex items-start">
-                                <div className="flex-shrink-0 p-3 bg-white/10 rounded-lg border border-white/10">
+                            {/* Phone - Click to Call */}
+                            <a href="tel:0401404239" className="flex items-start group transition-opacity hover:opacity-80">
+                                <div className="flex-shrink-0 p-3 bg-white/10 rounded-lg border border-white/10 group-hover:bg-white/20 transition-colors">
                                     <Phone className="w-6 h-6 text-cyan-400" />
                                 </div>
                                 <div className="ml-4">
                                     <h3 className="text-lg font-semibold text-white">Phone</h3>
-                                    <p className="text-marine-200 mt-1">0401 404 239</p>
+                                    <p className="text-marine-200 mt-1 decoration-marine-400 group-hover:underline underline-offset-4 decoration-2">0401 404 239</p>
                                 </div>
-                            </div>
+                            </a>
 
-                            <div className="flex items-start">
-                                <div className="flex-shrink-0 p-3 bg-white/10 rounded-lg border border-white/10">
+                            {/* Email - Click to Copy */}
+                            <button
+                                onClick={() => {
+                                    navigator.clipboard.writeText("jervisbayboatstorage@gmail.com");
+                                    toast.success("Email copied to clipboard!", {
+                                        description: "You can now paste it into your email client."
+                                    });
+                                }}
+                                className="flex items-start group text-left w-full transition-opacity hover:opacity-80"
+                            >
+                                <div className="flex-shrink-0 p-3 bg-white/10 rounded-lg border border-white/10 group-hover:bg-white/20 transition-colors">
                                     <Mail className="w-6 h-6 text-cyan-400" />
                                 </div>
                                 <div className="ml-4">
                                     <h3 className="text-lg font-semibold text-white">Email</h3>
-                                    <p className="text-marine-200 mt-1">jervisbayboatstorage@gmail.com</p>
+                                    <p className="text-marine-200 mt-1 decoration-marine-400 group-hover:underline underline-offset-4 decoration-2">jervisbayboatstorage@gmail.com</p>
                                 </div>
-                            </div>
+                            </button>
 
-                            <div className="flex items-start">
-                                <div className="flex-shrink-0 p-3 bg-white/10 rounded-lg border border-white/10">
+                            {/* Facebook - External Link */}
+                            <a
+                                href="https://facebook.com/jervisbayboatstorage"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="flex items-start group transition-opacity hover:opacity-80"
+                            >
+                                <div className="flex-shrink-0 p-3 bg-white/10 rounded-lg border border-white/10 group-hover:bg-white/20 transition-colors">
                                     <Facebook className="w-6 h-6 text-cyan-400" />
                                 </div>
                                 <div className="ml-4">
                                     <h3 className="text-lg font-semibold text-white">Social</h3>
-                                    <p className="text-marine-200 mt-1">@jervisbayboatstorage</p>
+                                    <p className="text-marine-200 mt-1 decoration-marine-400 group-hover:underline underline-offset-4 decoration-2">@jervisbayboatstorage</p>
                                 </div>
-                            </div>
+                            </a>
 
-                            <div className="flex items-start">
-                                <div className="flex-shrink-0 p-3 bg-white/10 rounded-lg border border-white/10">
+                            {/* Address - Click to Copy */}
+                            <button
+                                onClick={() => {
+                                    navigator.clipboard.writeText("19 Erina Road, Huskisson NSW 2540");
+                                    toast.success("Address copied to clipboard!", {
+                                        description: "You can paste it into your preferred maps app."
+                                    });
+                                }}
+                                className="flex items-start group text-left w-full transition-opacity hover:opacity-80"
+                            >
+                                <div className="flex-shrink-0 p-3 bg-white/10 rounded-lg border border-white/10 group-hover:bg-white/20 transition-colors">
                                     <MapPin className="w-6 h-6 text-cyan-400" />
                                 </div>
                                 <div className="ml-4">
                                     <h3 className="text-lg font-semibold text-white">Location</h3>
-                                    <p className="text-marine-200 mt-1">19 Erina Road, Huskisson NSW 2540</p>
+                                    <p className="text-marine-200 mt-1 decoration-marine-400 group-hover:underline underline-offset-4 decoration-2">19 Erina Road, Huskisson NSW 2540</p>
                                 </div>
-                            </div>
+                            </button>
                         </div>
 
                         {/* Google Map Embed */}
